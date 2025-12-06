@@ -3,7 +3,17 @@ import fetch from "node-fetch";
 import cors from "cors";
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: [
+        "https://wolverine-117.github.io",
+        "https://wolverine-117.github.io/MediGuide",
+        "http://localhost:5500",
+        "http://localhost:3000"
+    ],
+    methods: ["POST", "GET"],
+    allowedHeaders: ["Content-Type"]
+}));
+
 app.use(express.json()); // Needed for POST JSON requests
 
 // --------------------------
