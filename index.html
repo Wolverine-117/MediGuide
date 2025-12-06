@@ -104,9 +104,10 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        const API_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent";
+        //const API_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent";
         // NOTE: The API key is managed by the environment
-        const API_KEY = ""; 
+        //const API_KEY = ""; 
+        const API_BASE_URL = "https://mediguide-pb8r.onrender.com/gemini";
 
         const SYSTEM_PROMPT = `
 You are MediBot, a medical information AI assistant. 
@@ -187,7 +188,7 @@ CRITICAL:
 
         // --- API CALLER ---
         const callGeminiAPI = async (prompt, imageBase64 = null, jsonMode = false) => {
-            const url = `${API_BASE_URL}?key=${API_KEY}`;
+            const url = API_BASE_URL;
             const contents = [
                 {
                     role: "user",
@@ -932,6 +933,7 @@ CRITICAL:
 </body>
 
 </html>
+
 
 
 
