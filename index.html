@@ -82,9 +82,9 @@
                         <span>Scan Medicine</span>
                     </button>
                     
-                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors">
-                        //<button id="theme-toggle" onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors"></button>
-                        </button>
+                    <button id="theme-toggle" onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors">
+                        <!-- Sun/Moon Icon will be injected by JS -->
+                    </button>
                 </nav>
                 
                 <!-- Mobile Actions -->
@@ -101,8 +101,9 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h4"/><path d="M15 7h4"/><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M12 15V19"/><path d="M12 21h2"/><path d="M12 21h-2"/></svg>
                     </button>
             
-                    <button id="mobile-theme-toggle" class="p-2 text-slate-600 dark:text-slate-300">
-                        </button>
+                    <button id="mobile-theme-toggle" onclick="toggleTheme()" class="p-2 text-slate-600 dark:text-slate-300">
+                        <!-- Sun/Moon Icon will be injected by JS -->
+                    </button>
                 </div>
             </div>
         </header>
@@ -268,6 +269,7 @@ CRITICAL:
             appState = { ...appState, ...newState };
             if (shouldUpdateUI) {
                 updateUI();
+            
             } else {
                 // If not updating full UI, check if only search/suggestion elements need update
                 updateSearchUI();
@@ -890,6 +892,15 @@ CRITICAL:
             `;
         }
 
+        function toggleTheme() {
+            document.body.classList.toggle("dark");  // Tailwind compatible
+            const themeToggle = document.getElementById('theme-toggle');
+            const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+            const isDarkMode = document.body.classList.contains('dark');
+            if (themeToggle) themeToggle.innerHTML = isDarkMode ? Icons.Sun : Icons.Moon;
+            if (mobileThemeToggle) mobileThemeToggle.innerHTML = isDarkMode ? Icons.Sun : Icons.Moon;
+        }
+        
         function updateUI() {
             // 1. Set Dark Mode class on body
             document.body.classList.toggle('dark', appState.isDarkMode);
@@ -985,6 +996,7 @@ CRITICAL:
 </body>
 
 </html>
+
 
 
 
