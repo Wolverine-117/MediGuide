@@ -75,9 +75,16 @@
                 
                 <!-- Mobile Actions -->
                 <div class="flex items-center gap-2 md:hidden">
-                    <button id="mobile-theme-toggle" class="p-2 text-slate-600 dark:text-slate-300">
-                        <!-- Sun/Moon Icon will be injected by JS -->
+                    <button onclick="clearSearchAndResetView()" class="p-2 text-slate-600 dark:text-slate-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                     </button>
+
+                    <a href="https://www.google.com/maps/search/nearby+medical+shops" target="_blank" rel="noopener noreferrer" class="p-2 text-slate-600 dark:text-slate-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </a>
+
+                    <button id="mobile-theme-toggle" class="p-2 text-slate-600 dark:text-slate-300">
+                        </button>
                     <button onclick="toggleScannerModal(true)" class="p-2 text-emerald-600 dark:text-emerald-400">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h4"/><path d="M15 7h4"/><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M12 15V19"/><path d="M12 21h2"/><path d="M12 21h-2"/></svg>
                     </button>
@@ -936,6 +943,7 @@ CRITICAL:
 </body>
 
 </html>
+
 
 
 
