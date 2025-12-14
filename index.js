@@ -7,8 +7,8 @@ app.use(cors({
     origin: [
         "https://wolverine-117.github.io",
         "https://wolverine-117.github.io/MediGuide",
-        "http://localhost:5500",
-        "http://localhost:3000"
+        //"http://localhost:5500",
+        //"http://localhost:3000"
     ],
     methods: ["POST", "GET"],
     allowedHeaders: ["Content-Type"]
