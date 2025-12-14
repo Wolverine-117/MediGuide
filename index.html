@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="icon" type="image/png" href="6158705141230537759.jpg">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -497,15 +498,18 @@ CRITICAL:
             event.preventDefault();
             if (!appState.chatInput.trim()) return;
 
-            const userMessage = appState.chatInput.trim();
-            const newHistory = [...appState.chatHistory, { role: 'user', text: userMessage }];
-
-            // Update state and UI (shows loading spinner/updates chat)
-            setAppState({ chatHistory: newHistory, chatInput: '', chatLoading: true, isChatOpen: true });
-            
             const prompt = `User Question: "${userMessage}". Previous Context: ${JSON.stringify(newHistory.slice(-2))}. Answer accurately but concisely with safety disclaimers.`;
-            const responseText = await callGeminiAPI(prompt, null, false);
+            responseText = await callGeminiAPI(prompt, null, false);
             
+            const words = userMessage.split(/\s+/);
+
+	        if (words.length === 1) {
+  		    console.log("Only one word:", words[0]);
+
+	        const prompt2 = `User Question: "${responseText}". if the statement is in jason formate, convert it into human readable formate and do not use bold letters. if it is already not in jason formate, then leave it as it is`;
+            responseText = await callGeminiAPI(prompt2, null, false);}
+
+
             const finalResponse = responseText || "I'm sorry, I couldn't process that request right now due to a network or API error.";
             
             // Update state and UI (shows new message)
@@ -972,6 +976,7 @@ CRITICAL:
 </body>
 
 </html>
+
 
 
 
