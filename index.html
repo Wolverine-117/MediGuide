@@ -55,7 +55,7 @@
     </style>
 </head>
 <body class="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 min-h-screen">
-	<!-- LOGIN OVERLAY -->
+	<!-- LOGIN OVERLAY (NEW) -->
 <div id="login-screen" class="fixed inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center z-50">
     <div class="bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl rounded-3xl p-8 w-11/12 max-w-md border border-white/20 shadow-2xl">
         <div class="text-center mb-8">
@@ -94,10 +94,8 @@
         
         <div id="login-error" class="mt-4 p-3 bg-red-100 dark:bg-red-900/50 border border-red-200 dark:border-red-500 rounded-xl text-red-800 dark:text-red-200 text-sm hidden">
             Invalid username or password.
-		</div>
-		<div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400 text-center">
-            Login Environment
         </div>
+        
     </div>
 </div>
 
@@ -1010,7 +1008,7 @@ CRITICAL:
                 }
             }
         }
-		// --- LOGIN SYSTEM (NEW) ---
+// --- LOGIN SYSTEM ---
 const USERS = [
     { username: 'admin', password: 'pass123' },
     { username: 'user1', password: 'pass123' },
@@ -1028,33 +1026,26 @@ function handleLogin(event) {
     const errorDiv = document.getElementById('login-error');
     const loginBtn = document.getElementById('login-btn');
     
-    // Show loading
     loginBtn.innerHTML = `${Icons.Loader2.replace('24', '20')} Logging in...`;
     loginBtn.disabled = true;
     errorDiv.classList.add('hidden');
     
-    // Check credentials
     const user = USERS.find(u => u.username === username && u.password === password);
     
     setTimeout(() => {
         if (user) {
-            // Hide login screen
             document.getElementById('login-screen').style.display = 'none';
-            // Show main app
             document.getElementById('app-container').style.display = 'block';
-            // Initialize app
             updateUI();
         } else {
-            // Show error
             errorDiv.classList.remove('hidden');
             loginBtn.innerHTML = 'Login to MediGuide+';
             loginBtn.disabled = false;
             document.getElementById('username').focus();
         }
     }, 800);
-}
-       
-        window.onload = function() {
+}																							
+		window.onload = function() {
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 document.body.classList.add('dark');
             }
@@ -1064,6 +1055,7 @@ function handleLogin(event) {
 </body>
 
 </html>
+
 
 
 
