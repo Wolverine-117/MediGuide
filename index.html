@@ -716,69 +716,56 @@ CRITICAL:
 
 
         function renderHeroSection() {
-            const quickActions = ['Paracetamol', 'Ibuprofen', 'Cetirizine', 'Aspirin'].map(med => `
-                <button 
-                    onclick="handleSelectMedicine('${med}')"
-                    class="px-5 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full text-sm font-medium text-slate-600 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-500 transition-colors shadow-sm"
-                >
-                    ${med}
-                </button>
-            `).join('');
+    const quickActions = ['Paracetamol', 'Ibuprofen', 'Cetirizine', 'Aspirin'].map(med => `
+        <button 
+            onclick="window.handleSelectMedicine('${med}')"
+            class="px-5 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full text-sm font-medium text-slate-600 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-500 transition-colors shadow-sm"
+        >
+            ${med}
+        </button>
+    `).join('');
 
-            return `
-                <div class="text-center mb-16 fade-in">
-                    <h1 class="text-4xl md:text-6xl font-bold mb-6 text-slate-900 dark:text-white">
-                        Find <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-400">Medicine</span> Info
-                    </h1>
-                    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-12">
-                        Instantly identify medicines by name or photo. Get dosages, side effects, and safe alternatives powered by AI.
-                    </p>
+    return `
+        <div class="text-center mb-16 fade-in">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 text-slate-900 dark:text-white">
+                Find <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-400">Medicine</span> Info
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-12">
+                Instantly identify medicines by name or photo. Get dosages, side effects, and safe alternatives powered by AI.
+            </p>
 
-                    <!-- SEARCH BAR CONTAINER (Fixed to prevent input flicker) -->
-                    <div id="search-container" class="relative max-w-3xl mx-auto group">
-                        <div class="absolute inset-0 bg-emerald-500/10 blur-xl rounded-full group-hover:bg-emerald-500/20 transition-all"></div>
-                        <div class="relative flex items-center bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl dark:shadow-none focus-within:border-emerald-500/50 transition-colors">
-                            ${renderIcon('Search', 'w-6 h-6 text-slate-400 ml-6')}
-                            <input 
-                                type="text" 
-                                id="search-input"
-                                value="${appState.query}"
-                                placeholder="Search medicine (e.g., Dolo, Amoxicillin)..."
-                                class="w-full bg-transparent border-none px-6 py-5 text-lg text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-0"
-                                oninput="handleSearchInput(event)"
-                            />
-                            <div id="loading-icon-container" class="pr-6">
-                                <!-- Loading icon will be injected by updateSearchUI -->
-                                ${appState.loadingSuggestions ? renderIcon('Loader2', 'w-5 h-5 text-emerald-500 animate-spin') : ''}
-                            </div>
-                        </div>
-                        
-                        <!-- SUGGESTIONS CONTAINER (Updated independently) -->
-                        <div id="suggestions-container" class="absolute top-full left-0 right-0 mt-4 bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden z-30 ${appState.loadingSuggestions || appState.suggestions.length > 0 ? '' : 'hidden'}">
-                            ${renderSuggestionsDropdown()}
-                        </div>
-                    </div>
-
-                    <!-- QUICK ACTIONS -->
-                    <div class="flex flex-wrap justify-center gap-3 mt-12">
-                        ${quickActions}
+            <!-- SEARCH BAR CONTAINER (Fixed to prevent input flicker) -->
+            <div id="search-container" class="relative max-w-3xl mx-auto group">
+                <div class="absolute inset-0 bg-emerald-500/10 blur-xl rounded-full group-hover:bg-emerald-500/20 transition-all"></div>
+                <div class="relative flex items-center bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl dark:shadow-none focus-within:border-emerald-500/50 transition-colors">
+                    ${renderIcon('Search', 'w-6 h-6 text-slate-400 ml-6')}
+                    <input 
+                        type="text" 
+                        id="search-input"
+                        value="${appState.query}"
+                        placeholder="Search medicine (e.g., Dolo, Amoxicillin)..."
+                        class="w-full bg-transparent border-none px-6 py-5 text-lg text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-0"
+                        oninput="window.handleSearchInput(event)"
+                    />
+                    <div id="loading-icon-container" class="pr-6">
+                        <!-- Loading icon will be injected by updateSearchUI -->
+                        ${appState.loadingSuggestions ? renderIcon('Loader2', 'w-5 h-5 text-emerald-500 animate-spin') : ''}
                     </div>
                 </div>
-            `;
-        }
-
-        function renderLoadingState() {
-            return `
-                <div class="flex flex-col items-center justify-center py-20 animate-in fade-in">
-                    <div class="relative">
-                        <div class="absolute inset-0 bg-emerald-500 blur-xl opacity-20 animate-pulse rounded-full"></div>
-                        ${renderIcon('Loader2', 'relative w-16 h-16 text-emerald-500 animate-spin')}
-                    </div>
-                    <p class="text-slate-500 dark:text-slate-400 mt-6 animate-pulse font-medium">Analyzing medical database...</p>
+                
+                <!-- SUGGESTIONS CONTAINER (Updated independently) -->
+                <div id="suggestions-container" class="absolute top-full left-0 right-0 mt-4 bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl overflow-hidden z-30 ${appState.loadingSuggestions || appState.suggestions.length > 0 ? '' : 'hidden'}">
+                    ${renderSuggestionsDropdown()}
                 </div>
-            `;
-        }
+            </div>
 
+            <!-- QUICK ACTIONS -->
+            <div class="flex flex-wrap justify-center gap-3 mt-12">
+                ${quickActions}
+            </div>
+        </div>
+    `;
+}
         function renderChatWindow() {
             if (!appState.isChatOpen) {
                 return `
@@ -835,29 +822,26 @@ CRITICAL:
                         ${loadingHtml}
                     </div>
 
-                    <!-- Chat Input -->
-                    <form onsubmit="handleSendMessage(event)" class="p-4 border-t border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-b-2xl">
-                        <div class="flex gap-2">
-                            <input 
-                                type="text" 
-                                value="${appState.chatInput}"
-                                oninput="handleChatInput(event)"
-                                placeholder="Ask a medical question..."
-                                class="flex-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
-                                ${appState.chatLoading ? 'disabled' : ''}
-                            />
-                            <button 
-                                type="submit"
-                                ${appState.chatLoading ? 'disabled' : ''}
-                                class="bg-emerald-500 hover:bg-emerald-600 text-white p-2 rounded-xl transition-colors disabled:opacity-50"
-                            >
-                                ${renderIcon('Send', 'w-5 h-5')}
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            `;
-        }
+                   <!-- Chat Input -->		
+<form onsubmit="window.handleSendMessage(event); return false;" class="p-4 border-t border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-b-2xl">
+    <div class="flex gap-2">
+        <input 
+            type="text" 
+            value="${appState.chatInput}"
+            oninput="window.handleChatInput(event)"
+            placeholder="Ask a medical question..."
+            class="flex-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
+            ${appState.chatLoading ? 'disabled' : ''}
+        />
+        <button 
+            type="submit"
+            ${appState.chatLoading ? 'disabled' : ''}
+            class="bg-emerald-500 hover:bg-emerald-600 text-white p-2 rounded-xl transition-colors disabled:opacity-50"
+        >
+            ${renderIcon('Send', 'w-5 h-5')}
+        </button>
+    </div>
+</form>
 
         function renderScannerModal() {
             if (!appState.showScannerModal) return '';
@@ -1044,7 +1028,96 @@ function handleLogin(event) {
             document.getElementById('username').focus();
         }
     }, 800);
-}																							
+}
+// --- SEARCH FUNCTIONS (GLOBAL) ---
+window.handleSearchInput = function(event) {
+    const newQuery = event.target.value;
+    const searchInput = document.getElementById('search-input');
+    const hadSuggestionsOrLoading = appState.loadingSuggestions || appState.suggestions.length > 0;
+    
+    appState.query = newQuery; 
+    if (searchInput) searchInput.value = newQuery;
+
+    clearTimeout(appState.debounceTimer);
+    
+    let needsSearchUIUpdate = false;
+    if (newQuery.length >= 3) {
+        if (!appState.loadingSuggestions) {
+            setAppState({ loadingSuggestions: true, suggestions: [] }, false);
+            needsSearchUIUpdate = true;
+        }
+        appState.debounceTimer = setTimeout(() => window.fetchSuggestions(), 600);
+    } else if (hadSuggestionsOrLoading) {
+        setAppState({ loadingSuggestions: false, suggestions: [] }, false);
+        needsSearchUIUpdate = true;
+    }
+    
+    if (needsSearchUIUpdate) updateSearchUI();
+};
+
+window.fetchSuggestions = async function() {
+    if (appState.query.length < 3) {
+        setAppState({ loadingSuggestions: false, suggestions: [] }, false);
+        updateSearchUI();
+        return;
+    }
+    
+    const prompt = `User search query: "${appState.query}". Return JSON array of medicine suggestions only.`;
+    const result = await callGeminiAPI(prompt, null, true);
+    
+    let newSuggestions = [];
+    if (result) {
+        try {
+            const parsed = JSON.parse(result);
+            newSuggestions = Array.isArray(parsed) ? parsed : [];
+        } catch (e) {
+            console.error("Parse error for suggestions:", e);
+        }
+    }
+    setAppState({ loadingSuggestions: false, suggestions: newSuggestions }, false);
+    updateSearchUI();
+};
+		// --- CHAT FUNCTIONS ---
+window.handleChatInput = function(event) {
+    setAppState({ chatInput: event.target.value }, false); 
+};
+
+window.handleSendMessage = function(event) {
+    event.preventDefault();
+    if (!appState.chatInput.trim()) return;
+
+    const userMessage = appState.chatInput.trim();
+    const newHistory = [...appState.chatHistory, { role: 'user', text: userMessage }];
+    setAppState({ chatHistory: newHistory, chatInput: '', chatLoading: true, isChatOpen: true });
+    
+    const prompt = `User Question: "${userMessage}". Answer accurately but concisely with safety disclaimers.`;
+    callGeminiAPI(prompt, null, false).then(responseText => {
+        const finalResponse = responseText || "Sorry, couldn't process that request.";
+        setAppState({ 
+            chatHistory: [...newHistory, { role: 'assistant', text: finalResponse }], 
+            chatLoading: false 
+        });
+    });
+};
+
+window.handleSelectMedicine = async function(medicineName) {
+    setAppState({ query: medicineName, suggestions: [], loadingSuggestions: false, loading: true, selectedMedicine: null });
+    const prompt = `User selected medicine: "${medicineName}". Provide comprehensive details in the specified JSON format.`;
+    const result = await callGeminiAPI(prompt, null, true);
+    
+    if (result) {
+        try {
+            const data = JSON.parse(result);
+            if (data.name) {
+                setAppState({ selectedMedicine: data, loading: false });
+                return;
+            }
+        } catch (e) {
+            console.error("Details parse error:", e);
+        }
+    }
+    setAppState({ loading: false });
+};
 		window.onload = function() {
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 document.body.classList.add('dark');
@@ -1055,6 +1128,7 @@ function handleLogin(event) {
 </body>
 
 </html>
+
 
 
 
