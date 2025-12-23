@@ -541,7 +541,12 @@ CRITICAL:
 
         async function handleSendMessage(event) {
             event.preventDefault();
-            if (!appState.chatInput.trim()) return;
+			//const userMessage = appState.chatInput.trim();
+            //if (!appState.chatInput.trim()) return;
+
+			const userMessage = appState.chatInput.trim();
+    
+    		if (!userMessage) return;
 
             const prompt = `User Question: "${userMessage}". Previous Context: ${JSON.stringify(newHistory.slice(-2))}. Answer accurately but concisely with safety disclaimers.`;
             responseText = await callGeminiAPI(prompt, null, false);
@@ -1064,6 +1069,7 @@ function handleLogin(event) {
 </body>
 
 </html>
+
 
 
 
